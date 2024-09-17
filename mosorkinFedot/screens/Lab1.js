@@ -2,10 +2,11 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import ColorButton from "../components/buttons/ColorButton";
 import ButtonsContainer from "../components/ButtonsContainer";
+import { auth, db } from "../firebase";
 
 const Lab1 = () => {
   const [imageSize, setImageSize] = useState(100);
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const [backgroundColor, setBackgroundColor] = useState("#AD66D5");
 
   const handleColorButtonClick = () => {
     setBackgroundColor(generateRandomColor());
@@ -32,6 +33,12 @@ const Lab1 = () => {
     const blue = Math.floor(Math.random() * 256);
     return `rgb(${red}, ${green}, ${blue})`;
   };
+
+  const postsQuerySnapshot = db
+    .collection("posts")
+    .where("user_id", "==", auth.currentUser.uid)
+    .orderBy("timestamp", "desc")
+    .get();
 
   return (
     <View style={styles.container(backgroundColor)}>

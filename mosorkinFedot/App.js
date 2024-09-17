@@ -1,10 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
-import TabNavigator from './navigation/TabNavigator';
+import MainStackNavigation from "./navigation/MainStackNavigation";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <TabNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MainStackNavigation />
+      </NavigationContainer>
+    </Provider>
   );
 }
